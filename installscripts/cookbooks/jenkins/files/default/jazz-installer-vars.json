@@ -51,6 +51,9 @@
             "WEBSITE_DEV_BUCKET": "",
             "WEBSITE_STG_BUCKET": "",
             "WEBSITE_PROD_BUCKET": ""
+        },
+        "SWAGGER": {
+            "EDITOR_URL": "http://editor.swagger.io/?url="
         }
     },
     "JENKINS": {
@@ -78,7 +81,7 @@
         "service_tabs": {
             "overview": true,
             "access_control": false,
-            "metrics": false,
+            "metrics": true,
             "logs": true,
             "cost": false
         },
