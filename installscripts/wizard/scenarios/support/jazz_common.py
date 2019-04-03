@@ -2,6 +2,7 @@
 import os
 import re
 import subprocess
+import uuid
 
 # Global variables
 HOME_FOLDER = "~"
@@ -64,12 +65,18 @@ def parse_and_replace_parameter_list(terraform_folder, parameter_list):
     replace_tfvars('cognito_pool_password', cognito_details[1],
                    get_tfvars_file())
 
+    replace_tfvars('acl_db_password', uuid.uuid4().hex,
+                   get_tfvars_file())
+
     # Populating Jazz Tag env
     replace_tfvars('envPrefix', jazz_tag_details[0], get_tfvars_file())
     replace_tfvars('tagsEnvironment', jazz_tag_details[1], get_tfvars_file())
     replace_tfvars('tagsExempt', jazz_tag_details[2], get_tfvars_file())
     replace_tfvars('tagsOwner', jazz_tag_details[3], get_tfvars_file())
 
+    # Populating Region (Terraform destroy is not picking the region set from CLI)
+    replace_tfvars('region', os.environ['AWS_DEFAULT_REGION'], get_tfvars_file())
+    
     # Terraform provisioning script needs the jar file path
     replace_tfvars('atlassian_jar_path',
                    get_atlassian_tools_path() + "lib/bitbucket-cli-6.7.0.jar",
